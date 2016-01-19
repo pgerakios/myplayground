@@ -6,6 +6,11 @@ PL that:
 	- JVM lang
 	- Reactive NIO
 	- uses jvm libraries/methods/ and treats them as first-class values using the appropriate abstractions
+	- Value Restriction
+	- Neither classes nor objects are types (there are no static types!).
+	- A language that can manipulate "containers" like docker and orchestrate process creation.
+	
+ 
 
 Notation
 
@@ -75,3 +80,92 @@ Semantics
 <env, let x = e1 in e2> ==> v2
   if  <env,e1> ==> v1
   and <env[x->v1],e2> ==> v2
+
+
+  type card = Card of regular | Joker
+and regular = { suit : card_suit; name : card_name; }
+and card_suit = Heart | Club | Spade | Diamond
+and card_name = Ace | King | Queen | Jack | Simple of int;;
+
+let club_jack = Card { name = Jack; suit = Club; };;
+val club_jack : card = Card {suit=Club; name=Jack}
+
+let card n s = Card {name = n; suit = s}
+let king s = card King s;;
+val card : name -> suit -> card = <fun>
+val king : suit -> card = <fun>
+
+let value c =
+match c with
+| Joker -> 0
+| Card {name = Ace} -> 14
+| Card {name = King} -> 13
+| Card {name = Queen} -> 12
+| Card {name = Jack} -> 11
+| Card {name = Simple k} -> k;;
+
+
+let club_jack = Card { name = Jack; suit = Club; };;
+
+type ’a option = Some of ’a | None
+
+
+type account = { number : int; mutable balance : float }
+let retrieve account requested =
+let s = min account.balance requested in
+account.balance <- account.balance −. s; s;;
+
+
+
+ try E with x => a | raise E
+
+class counter = object
+val mutable n = 0
+method incr = n <- n+1
+method get = n
+end;;
+
+let c = new counter;;
+
+c#incr; c#incr; c#get;;
+
+class fileout’ filename =
+object (self)
+inherit fileout filename
+method close = close_out chan
+end
+
+class virtual writer =
+object (this)
+method virtual char : char -> unit
+method string s =
+for i = 0 to String.length s −1 do this#char s.[i] done
+method int i = this#string (string_of_int i)
+end;;
+
+module Float =
+struct
+type t = float
+let unit = 1.0
+let plus = (+.)
+let prod = ( *. )
+end;;
+
+module type CURRENCY =
+sig
+type t
+val unit : t
+val plus : t -> t -> t
+val prod : float -> t -> t
+end;;
+
+//In Float the type t is concrete, so it can be used for ”float”.
+// Here we create two isomorphic (same operations) modules, which are 
+// NOT identical however.  Float, whose type t = float is concrete is 
+// abstracted through the type cast (Float : CURRENCY) to an existential
+// type and this type is assigned to Euro. The existential "t" of EURO can
+// never be the same as the existential "t" of DOLLAR.
+
+module Euro = (Float : CURRENCY);;
+module Dollar = (Float : CURRENCY);;
+
