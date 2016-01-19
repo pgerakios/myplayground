@@ -1,0 +1,77 @@
+PL that:
+	- Has some scala features
+	- Is dynamic, but allows dynamic type assertions or tests
+	- objects/records (NO classes)
+	- NO threads
+	- JVM lang
+	- Reactive NIO
+	- uses jvm libraries/methods/ and treats them as first-class values using the appropriate abstractions
+
+Notation
+
+<env,e> ==> v means "e evaluates to v in environment env"
+
+{fun x -> e | env} denotes a closure with environment env.
+
+[x1->v1, x2->v2, ...] denotes the environment with x1 bound to v1, x2 bound to v2 and so on.
+
+env[x->v] denotes the environment env extended with a binding from x to v. If env already has a binding for x then it is replaced.
+
+env(x) denotes the value associated with x in env.
+
+we use + in the semantics to stand in for any basic arithmetic operation like +, *, <, etc.
+
+Syntax
+
+e ::= x | e1 e2 | fun x -> e
+    | n | e1 + e2
+    | (e1,e2) | fst e1 | snd e2
+    | Left e | Right e
+    | match e with Left x1 -> e1 | Right x2 -> e2
+    | let x = e1 in e2
+Semantics
+
+<env, x> ==> v
+  if env(x) = v
+
+<env, e1 e2> ==> v'
+  if  <env,e1> ==> {fun x -> e | newenv}
+  and <env,e2> ==> v
+  and <newenv[x->v],e> ==> v'
+
+<env, fun x -> e> ==> {fun x -> e | env}
+
+<env, n> ==> n
+
+<env, e1 + e2> ==> n
+  if  <env,e1> ==> n1
+  and <env,e2> ==> n2
+  and n is the result of applying the primitive operation + to n1 and n2
+
+<env, (e1,e2)> ==> (v1,v2)
+  if  <env,e1> ==> v1
+  and <env,e2> ==> v2
+
+<env, fst e> ==> v1
+  if <env,e> ==> (v1,v2)
+
+<env, snd e> ==> v2
+  if <env,e> ==> (v1,v2)
+
+<env, Left e> ==> Left v
+  if <env,e> ==> v
+
+<env, Right e> ==> Right v
+  if <env,e> ==> v
+
+<env, match e with Left x1 -> e1 | Right x2 -> e2> ==> v1
+  if  <env,e> ==> Left v
+  and <env[x1->v], e1> ==> v1
+
+<env, match e with Left x1 -> e1 | Right x2 -> e2> ==> v2
+  if  <env,e> ==> Right v
+  and <env[x2->v], e2> ==> v2
+
+<env, let x = e1 in e2> ==> v2
+  if  <env,e1> ==> v1
+  and <env[x->v1],e2> ==> v2
