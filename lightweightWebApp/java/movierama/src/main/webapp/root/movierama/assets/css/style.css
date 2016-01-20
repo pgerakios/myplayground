@@ -1,0 +1,55 @@
+#main_container {
+        margin-top:20%; /* Don't copy this */
+}
+
+.stylish-input-group .input-group-addon {
+        background: white !important;
+
+}
+
+.stylish-input-group .form-control {
+        border-right:0;
+        box-shadow:0 0 0;
+        border-color:#ccc;
+}
+
+.stylish-input-group button {
+        border:0;
+        background:transparent;
+
+}
+
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('http://i.stack.imgur.com/FhHRx.gif')
+                50% 50%
+                no-repeat;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .modal {
+    display: block;
+}
+
+#resultList {
+    margin-top:10%;
+}
+
+#resultDescription {
+    margin-top:10%;
+}
+
+#numberOfReviews {
+    float: right;
+    margin-bottom:10px;
+}

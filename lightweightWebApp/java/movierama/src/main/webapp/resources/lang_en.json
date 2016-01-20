@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "key": "query.results.thisweek.found",
+      "val": "{{0}} movies in theaters this week"
+    },
+    {
+      "key": "query.results.bytitle.found",
+      "val": "{{0}} movies matching title {{1}}"
+    },
+    {
+      "key": "query.no.results.found",
+      "val": "No results found for movie title {{0}}"
+    },
+    {
+      "key": "site.title",
+      "val": "MovieRama"
+    },
+    {
+      "key": "query.movie.reviews",
+      "val": "{{0}} Reviews"
+    },
+    {
+      "key": "query.movie.year.and.cast",
+      "val": "{{0}} - Staring: {{1}}"
+    },
+    {
+      "key": "query.movie.description",
+      "val": "{{0}}"
+    },
+    {
+      "key": "query.movie.title",
+      "val": "{{0}}"
+    },
+    {
+      "key": "query.error",
+      "val": "An error has occurred. Please try again later"
+    },
+    {
+      "key": "query.search text",
+      "val": "search for a movie title"
+    }
+  ]
+}

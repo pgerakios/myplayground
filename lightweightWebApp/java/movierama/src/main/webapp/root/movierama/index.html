@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/movierama/assets/css/style.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/movierama/assets/js/main.js" ></script>
+    <script type="text/javascript" src="/movierama/assets/js/vendor/mustache.js" ></script>
+    <script type="text/javascript"></script>
+    <script id="rowTpl" type="text/template">
+        <div class="alert alert-{{alertType}}" id="{{movieId}}">
+            <strong id="movieTitle-{{movieId}}">{{movieTitle}}</strong>
+            <br/><br/>
+            <span id="movieYearCast-{{movieId}}">{{movieYearCast}}</span>
+            <br/><br/>
+            <span id="movieDescription-{{movieId}}">{{movieDescription}}</span>
+
+            <br/><br/>
+
+            <span id="numberOfReviews"><u>{{numberOfReviews}}</u></span>
+            <br/>
+        </div>
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div id="main_container">
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control" placeholder="{{searchText}}" id="submitText">
+                    <span class="input-group-addon">
+                        <button type="submit"  id="submitButton">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+                <div id="resultDescription">
+                    {{resultDescription}}
+                </div>
+                <div id="resultList">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal"></div>
+</body>
+</html>

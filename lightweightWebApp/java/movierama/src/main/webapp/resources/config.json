@@ -1,0 +1,229 @@
+{
+  "serviceInfo" : {
+    "localServer" : {
+      "host" : "127.0.0.1",
+      "port" : 8085
+    },
+    "staticContentPaths" : [ {
+      "path" : "/root"
+    } ],
+    "urlPath" : "/movierama"
+  },
+  "persistenceInfo" : {
+    "indexFile" : "/db/index.dat",
+    "dataFile" : "/db/db.dat",
+    "infinispanConfigFile" : "/resources/infinispan-config.xml",
+    "defaultCacheName" : "movierama",
+    "caches" : [ {
+      "cacheType" : "movieCache",
+      "dataFile" : "/db/MOVIE_CACHE_db.dat",
+      "maxEntries" : 5000,
+      "maxIdle" : 604800000,
+      "defaultLifespan" : 604800000
+    }, {
+      "cacheType" : "fileCache",
+      "dataFile" : "/db/FILE_CACHE_db.dat",
+      "maxEntries" : 256,
+      "maxIdle" : 604800,
+      "defaultLifespan" : 604800
+    }, {
+      "cacheType" : "throttleCache",
+      "dataFile" : "/db/THROTTLE_CACHE_db.dat",
+      "maxEntries" : 256,
+      "maxIdle" : 604800,
+      "defaultLifespan" : 604800
+    }, {
+      "cacheType" : "keywordCache",
+      "dataFile" : "/db/KEYWORD_CACHE_db.dat",
+      "maxEntries" : 256,
+      "maxIdle" : 604800,
+      "defaultLifespan" : 604800
+    } ]
+  },
+  "integrationInfos" : {
+    "apis" : [ {
+      "providerType" : "ROTTENTOMATOES",
+      "queryType" : "nowplaying",
+      "resourceKey" : "rottenNowPlaying",
+      "urlTemplate" : "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "ROTTENTOMATOES",
+      "queryType" : "bytitle",
+      "resourceKey" : "rottenByTitle",
+      "urlTemplate" : "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=${apikey}&q=${query}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "ROTTENTOMATOES",
+      "queryType" : "byid",
+      "resourceKey" : "rottenById",
+      "urlTemplate" : "http://api.rottentomatoes.com/api/public/v1.0/movies/${id}.json?apikey=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "ROTTENTOMATOES",
+      "queryType" : "reviewsbyid",
+      "resourceKey" : "rottenReviewsById",
+      "urlTemplate" : "http://api.rottentomatoes.com/api/public/v1.0/movies/${id}/reviews.json?apikey=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "ROTTENTOMATOES",
+      "queryType" : "",
+      "resourceKey" : "rottenDynamic",
+      "urlTemplate" : "${dynamic}?apikey=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "THEMOVIEDB",
+      "queryType" : "bytitle",
+      "resourceKey" : "movieDBByTitle",
+      "urlTemplate" : "http://api.themoviedb.org/3/search/movie?api_key=${apikey}&query=${query}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "THEMOVIEDB",
+      "queryType" : "nowplaying",
+      "resourceKey" : "movieDBNowPlaying",
+      "urlTemplate" : "http://api.themoviedb.org/3/movie/now_playing?api_key=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "THEMOVIEDB",
+      "queryType" : "byid",
+      "resourceKey" : "movieDBById",
+      "urlTemplate" : "http://api.themoviedb.org/3/movie/${id}?api_key=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "THEMOVIEDB",
+      "queryType" : "castbyid",
+      "resourceKey" : "movieDBById",
+      "urlTemplate" : "http://api.themoviedb.org/3/movie/${id}/credits?api_key=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    }, {
+      "providerType" : "THEMOVIEDB",
+      "queryType" : "",
+      "resourceKey" : "movieDBDynamic",
+      "urlTemplate" : "${dynamic}?api_key=${apikey}",
+      "params" : [ {
+        "name" : "apikey",
+        "value" : ""
+      }, {
+        "name" : "id",
+        "value" : null
+      }, {
+        "name" : "query",
+        "value" : null
+      }, {
+        "name" : "dynamic",
+        "value" : null
+      } ]
+    } ]
+  },
+  "language" : "lang_en",
+  "threadPoolSize" : 20,
+  "restServiceTimeoutMillis" : 15000
+}
