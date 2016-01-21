@@ -10,7 +10,7 @@ PL that:
 	- Neither classes nor objects are types (there are no static types!).
 	- A language that can manipulate "containers" like docker and orchestrate process creation.
 	
- 
+ 	
 
 Notation
 
